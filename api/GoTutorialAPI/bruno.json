@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "GoTutorialAPI",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

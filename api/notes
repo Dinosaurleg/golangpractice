@@ -1,0 +1,14 @@
+Notes:
+
+go install . or go install <packagename> will install packages
+go.mod is like node modules/requirements.txt
+go.sum is like package-lock, etc
+
+to start can do go run . (like npm/ng start)
+
+methods (var type)
+
+if you have unused vars like i, a := someFunction() it will complain about the unused vars
+if you're just using a, make i -> _ (blank identifier) such as range for getAlbumById
+
+go is pass by value

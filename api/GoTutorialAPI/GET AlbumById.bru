@@ -1,0 +1,16 @@
+meta {
+  name: GET AlbumById
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8080/albums/2
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

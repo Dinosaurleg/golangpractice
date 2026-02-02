@@ -1,0 +1,25 @@
+meta {
+  name: POST Albums
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/albums
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": "4",
+    "title": "The Greate Divide",
+    "Artist": "Noah Kahan",
+    "Price": 9.99
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

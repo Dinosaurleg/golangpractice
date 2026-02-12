@@ -12,9 +12,10 @@ func main() {
 	dboperations.CreateDb()
 	router := gin.Default()
 	router.GET("/albums", api.GetAlbums)
-	router.GET("albums/:id", api.GetAlbumByID)
+	router.GET("album/:id", api.GetAlbumByID)
 	router.POST("/albums", api.PostAlbum)
-	router.DELETE("/albums/:id", api.DeleteAlbum)
+	router.DELETE("/album/:id", api.DeleteAlbum)
+	router.PATCH("/albums/:id", api.UpdateAlbum)
 
 	router.Run("localhost:8080")
 }

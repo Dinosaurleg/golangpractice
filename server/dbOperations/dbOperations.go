@@ -63,6 +63,22 @@ func InsertEntry(album models.Album) {
 	closeDb(sqlLiteDb)
 }
 
+func UpdateEntry(ID uint, album models.Album) error {
+	sqlLiteDb := openDb()
+
+	fmt.Printf("WE ARE BEFOR RESULT")
+	result := sqlLiteDb.Model(&models.Album{}).Where("id = ?", ID).Updates(&album)
+	fmt.Printf("WE ARE AFER RESULT")
+
+	if result.Error != nil {
+		log.Fatal("failed to update recordL ", result.Error)
+		return result.Error
+	}
+	fmt.Printf("Updated user with ID: %d", album.ID)
+	closeDb(sqlLiteDb)
+	return nil
+}
+
 func DeleteEntry(ID uint) error {
 	sqlLiteDb := openDb()
 	album := models.Album{ID: ID}

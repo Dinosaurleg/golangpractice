@@ -1,0 +1,22 @@
+meta {
+  name: PATCH Album
+  type: http
+  seq: 6
+}
+
+patch {
+  url: http://localhost:8080/albums/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Test 123"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

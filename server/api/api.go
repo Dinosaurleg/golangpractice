@@ -1,7 +1,8 @@
 package api
 
 import (
-	// "net/http"
+	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 
@@ -12,20 +13,10 @@ import (
 )
 
 func GetAlbums(c *gin.Context) {
-	dboperations.GetRecords()
+	var albums []models.Album
+	albums = dboperations.GetRecords()
+	c.IndentedJSON(http.StatusOK, albums)
 }
-
-// func GetAlbumById(c *gin.Context) {
-// 	id := c.Param("id")
-
-// 	for _, album := range albums {
-// 		if album.Id == id {
-// 			c.IndentedJSON(http.StatusOK, album)
-// 			return
-// 		}
-// 	}
-// 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
-// }
 
 func PostAlbum(c *gin.Context) {
 	var newAlbum models.Album
@@ -36,4 +27,16 @@ func PostAlbum(c *gin.Context) {
 	}
 
 	dboperations.InsertEntry(newAlbum)
+}
+
+func DeleteAlbum(c *gin.Context) {
+	id := c.Param("id")
+
+	u64, err := strconv.ParseUint(id, 10, 64)
+	err = dboperations.DeleteEntry(uint(u64))
+
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"message": "error deleting album"})
+		return
+	}
 }

@@ -34,19 +34,45 @@ func CreateDb() {
 	closeDb(sqlLiteDb)
 }
 
-func GetRecords() {
+func GetRecords() []models.Album {
 	sqlLiteDb := openDb()
 
 	var albums []models.Album
 	sqlLiteDb.Find(&albums)
 	fmt.Println(albums)
+	closeDb(sqlLiteDb)
+	return albums
+}
+
+func getRecordByID(ID uint) models.Album {
+	sqlLiteDb := openDb()
+
+	var album models.Album
+	sqlLiteDb.First(&album, ID)
+	fmt.Println(album)
+	closeDb(sqlLiteDb)
+	return album
 }
 
 func InsertEntry(album models.Album) {
 	sqlLiteDb := openDb()
 
 	result := sqlLiteDb.Create(&album)
-	fmt.Printf("Inserted user with ID: %d, Rows Affected: %d\n", album.Id, result.RowsAffected)
+	fmt.Printf("Inserted user with ID: %d, Rows Affected: %d\n", album.ID, result.RowsAffected)
 
 	closeDb(sqlLiteDb)
+}
+
+func DeleteEntry(ID uint) error {
+	sqlLiteDb := openDb()
+	album := models.Album{ID: ID}
+	result := sqlLiteDb.Delete(&album)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	fmt.Printf("Rows deleted: %d\n", result.RowsAffected)
+	closeDb(sqlLiteDb)
+	return nil
 }

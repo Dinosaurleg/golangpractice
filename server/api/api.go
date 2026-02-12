@@ -18,6 +18,19 @@ func GetAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, albums)
 }
 
+func GetAlbumByID(c *gin.Context) {
+	id := c.Param("id")
+
+	u64, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "invalid id"})
+		return
+	}
+
+	album := dboperations.GetRecordByID(uint(u64))
+	c.IndentedJSON(http.StatusOK, album)
+}
+
 func PostAlbum(c *gin.Context) {
 	var newAlbum models.Album
 

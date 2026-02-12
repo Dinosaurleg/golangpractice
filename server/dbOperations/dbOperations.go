@@ -44,7 +44,7 @@ func GetRecords() []models.Album {
 	return albums
 }
 
-func getRecordByID(ID uint) models.Album {
+func GetRecordByID(ID uint) models.Album {
 	sqlLiteDb := openDb()
 
 	var album models.Album
